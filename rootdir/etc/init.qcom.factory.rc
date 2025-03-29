@@ -43,20 +43,35 @@ service mmi_diag /system_ext/bin/mmi_diag
         group root oem_2901
         disabled
 
-on property:vendor.sys.boot_mode=ffbm
+on property:vendor.sys.boot_mode=ffbm && property:ro.build.type=userdebug
     write ${persist.vendor.mmi.misc_dev_path} "ffbm-01"
 
-on property:vendor.sys.boot_mode=qmmi
+on property:vendor.sys.boot_mode=ffbm && property:ro.build.type=eng
+    write ${persist.vendor.mmi.misc_dev_path} "ffbm-01"
+
+on property:vendor.sys.boot_mode=qmmi && property:ro.build.type=userdebug
     write ${persist.vendor.mmi.misc_dev_path} "qmmi"
 
-on property:vendor.sys.boot_mode=normal
+on property:vendor.sys.boot_mode=qmmi && property:ro.build.type=eng
+    write ${persist.vendor.mmi.misc_dev_path} "qmmi"
+
+on property:vendor.sys.boot_mode=normal && property:ro.build.type=userdebug
+    write ${persist.vendor.mmi.misc_dev_path} "normal"
+
+on property:vendor.sys.boot_mode=normal && property:ro.build.type=eng
     write ${persist.vendor.mmi.misc_dev_path} "normal"
 
 # Creating a scratch storage on /data for factory testing.
-on factory-fs && property:ro.bootmode=ffbm-00
+on factory-fs && property:ro.bootmode=ffbm-00 && property:ro.build.type=userdebug
     mount tmpfs tmpfs /data
 
-on factory-fs && property:ro.bootmode=ffbm-01
+on factory-fs && property:ro.bootmode=ffbm-00 && property:ro.build.type=eng
+    mount tmpfs tmpfs /data
+
+on factory-fs && property:ro.bootmode=ffbm-01 && property:ro.build.type=userdebug
+    mount tmpfs tmpfs /data
+
+on factory-fs && property:ro.bootmode=ffbm-01 && property:ro.build.type=eng
     mount tmpfs tmpfs /data
 
 # aligned the usb port with system standard, otherwise if only diag be added
@@ -91,16 +106,28 @@ on mmi && property:ro.bootmode=ffbm-01
     start qcom-post-boot
     start mmi_diag
 
-on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-00
+on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-00 && property:ro.build.type=userdebug
     setprop sys.usb.config ${persist.vendor.usb.config}
 
-on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-01
+on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-00 && property:ro.build.type=eng
     setprop sys.usb.config ${persist.vendor.usb.config}
 
-on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-02
+on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-01 && property:ro.build.type=userdebug
     setprop sys.usb.config ${persist.vendor.usb.config}
 
-on property:persist.vendor.usb.config=* && property:ro.bootmode=qmmi
+on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-01 && property:ro.build.type=eng
+    setprop sys.usb.config ${persist.vendor.usb.config}
+
+on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-02 && property:ro.build.type=userdebug
+    setprop sys.usb.config ${persist.vendor.usb.config}
+
+on property:persist.vendor.usb.config=* && property:ro.bootmode=ffbm-02 && property:ro.build.type=eng
+    setprop sys.usb.config ${persist.vendor.usb.config}
+
+on property:persist.vendor.usb.config=* && property:ro.bootmode=qmmi && property:ro.build.type=userdebug
+    setprop sys.usb.config ${persist.vendor.usb.config}
+
+on property:persist.vendor.usb.config=* && property:ro.bootmode=qmmi && property:ro.build.type=eng
     setprop sys.usb.config ${persist.vendor.usb.config}
 
 on property:persist.vendor.wfd.source.hdmi.enable=*
@@ -147,6 +174,35 @@ service vendor.audio_tc53 /vendor/bin/mm-audio-ftm -tc 53
     disabled
     oneshot
 
+service vendor.audio_tc1 /vendor/bin/mm-audio-ftm -tc 1
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc2 /vendor/bin/mm-audio-ftm -tc 2
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc3 /vendor/bin/mm-audio-ftm -tc 3
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc4 /vendor/bin/mm-audio-ftm -tc 4
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc5 /vendor/bin/mm-audio-ftm -tc 5
+    user audio
+    group audio
+    disabled
+    oneshot
 
 service vendor.audio_tc51 /vendor/bin/mm-audio-ftm -tc 51
     user audio
@@ -166,6 +222,12 @@ service vendor.audio_tc222 /vendor/bin/mm-audio-ftm -tc 222
     disabled
     oneshot
 
+service vendor.audio_tc225 /vendor/bin/mm-audio-ftm -tc 225
+    user audio
+    group audio
+    disabled
+    oneshot
+
 service vendor.audio_tc228 /vendor/bin/mm-audio-ftm -tc 228
     user audio
     group audio
@@ -179,12 +241,6 @@ service vendor.audio_tc229 /vendor/bin/mm-audio-ftm -tc 229
     oneshot
 
 service vendor.audio_tc230 /vendor/bin/mm-audio-ftm -tc 230
-    user audio
-    group audio
-    disabled
-    oneshot
-
-service vendor.audio_tc225 /vendor/bin/mm-audio-ftm -tc 225
     user audio
     group audio
     disabled
@@ -226,7 +282,91 @@ service vendor.audio_tc253 /vendor/bin/mm-audio-ftm -tc 253
     disabled
     oneshot
 
+service vendor.audio_tc333 /vendor/bin/mm-audio-ftm -tc 333
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc334 /vendor/bin/mm-audio-ftm -tc 334
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc335 /vendor/bin/mm-audio-ftm -tc 335
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc336 /vendor/bin/mm-audio-ftm -tc 336
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc337 /vendor/bin/mm-audio-ftm -tc 337
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc338 /vendor/bin/mm-audio-ftm -tc 338
+    user audio
+    group audio
+    disabled
+    oneshot
+
 service vendor.audio_tc11 /vendor/bin/mm-audio-ftm -tc 11 -file /data/vendor/audio/ftm_headset_mic_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc16 /vendor/bin/mm-audio-ftm -tc 16 -file /data/vendor/audio/ftm_mic1_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc17 /vendor/bin/mm-audio-ftm -tc 17 -file /data/vendor/audio/ftm_mic2_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc18 /vendor/bin/mm-audio-ftm -tc 18 -file /data/vendor/audio/ftm_mic3_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc19 /vendor/bin/mm-audio-ftm -tc 19 -file /data/vendor/audio/ftm_mic4_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc20 /vendor/bin/mm-audio-ftm -tc 20 -file /data/vendor/audio/ftm_mic5_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc21 /vendor/bin/mm-audio-ftm -tc 21 -file /data/vendor/audio/ftm_mic6_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc22 /vendor/bin/mm-audio-ftm -tc 22 -file /data/vendor/audio/ftm_mic7_record.wav
+    user audio
+    group audio
+    disabled
+    oneshot
+
+service vendor.audio_tc23 /vendor/bin/mm-audio-ftm -tc 23 -file /data/vendor/audio/ftm_mic8_record.wav
     user audio
     group audio
     disabled

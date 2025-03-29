@@ -37,15 +37,49 @@ value:2912
 [AID_VENDOR_THALES_STRONGBOX]
 value:2913
 
+<<<<<<< HEAD
 [AID_VENDOR_THALES_WEAVER]
 value:2914
 
+=======
+[AID_VENDOR_QCC]
+value:2914
+
+[AID_VENDOR_NXP_AUTHSECRET]
+value:2915
+
+[AID_VENDOR_THALES_WEAVER]
+value:2916
+
+[AID_VENDOR_THALES_AUTHSECRET]
+value:2917
+
+[vendor/bin/hw/android.hardware.security.keymint-service.strongbox-nxp]
+mode: 0755
+user: AID_VENDOR_NXP_STRONGBOX
+group: AID_SYSTEM
+caps: SYS_ADMIN SYS_NICE WAKE_ALARM
+
+[vendor/bin/hw/android.hardware.weaver-service.nxp]
+mode: 0755
+user: AID_VENDOR_NXP_WEAVER
+group: AID_SYSTEM
+caps: SYS_ADMIN SYS_NICE WAKE_ALARM
+
+[vendor/bin/hw/android.hardware.authsecret-service.nxp-qti]
+mode: 0755
+user: AID_VENDOR_NXP_AUTHSECRET
+group: AID_SYSTEM
+caps: SYS_ADMIN SYS_NICE WAKE_ALARM
+
+>>>>>>> c1910e16a1e8cc1db894d386ac39ceb731958d51
 [vendor/bin/hw/android.hardware.security.keymint-service.strongbox-thales]
 mode: 0755
 user: AID_VENDOR_THALES_STRONGBOX
 group: AID_SYSTEM
 caps: SYS_ADMIN SYS_NICE
 
+<<<<<<< HEAD
 [vendor/bin/hw/android.hardware.weaver@1.0-service-thales]
 mode: 0755
 user: AID_VENDOR_THALES_WEAVER
@@ -53,14 +87,17 @@ group: AID_SYSTEM
 caps: SYS_ADMIN SYS_NICE
 
 [vendor/bin/hw/android.hardware.security.keymint-service.strongbox]
+=======
+[vendor/bin/hw/android.hardware.weaver-service.thales]
+>>>>>>> c1910e16a1e8cc1db894d386ac39ceb731958d51
 mode: 0755
-user: AID_VENDOR_NXP_STRONGBOX
+user: AID_VENDOR_THALES_WEAVER
 group: AID_SYSTEM
 caps: SYS_ADMIN SYS_NICE
 
-[vendor/bin/hw/android.hardware.weaver@1.0-service]
+[vendor/bin/hw/android.hardware.authsecret-service.thales-qti]
 mode: 0755
-user: AID_VENDOR_NXP_WEAVER
+user: AID_VENDOR_THALES_AUTHSECRET
 group: AID_SYSTEM
 caps: SYS_ADMIN SYS_NICE
 

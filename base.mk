@@ -113,8 +113,6 @@ ANGLE := libangle
 #APPOPS_POLICY
 APPOPS_POLICY := appops_policy.xml
 
-#ATRACE_HAL
-ATRACE_HAL := android.hardware.atrace@1.0-service
 
 AUDIO_HARDWARE := audio.primary.mpq8064
 AUDIO_HARDWARE += audio.primary.apq8084
@@ -128,7 +126,7 @@ AUDIO_HARDWARE += audio.primary.msm7627a
 AUDIO_HARDWARE += audio.primary.msm7630_surf
 AUDIO_HARDWARE += audio.primary.msm7630_fusion
 #AUDIO_HARDWARE += audio.primary.default
-AUDIO_HARDWARE += audio.a2dp.default
+#AUDIO_HARDWARE += audio.a2dp.default
 AUDIO_HARDWARE += audio.usb.default
 AUDIO_HARDWARE += audio.r_submix.default
 AUDIO_HARDWARE += audio.primary.mpq8092
@@ -845,16 +843,10 @@ else
     DELAUN := Launcher3
 endif
 
-#servicetracker HAL
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.servicetracker@1.2-impl \
-    vendor.qti.hardware.servicetracker@1.2-service
-
 PRODUCT_PACKAGES += $(ALSA_HARDWARE)
 PRODUCT_PACKAGES += $(ALSA_UCM)
 PRODUCT_PACKAGES += $(ANGLE)
 PRODUCT_PACKAGES += $(APPOPS_POLICY)
-PRODUCT_PACKAGES += $(ATRACE_HAL)
 PRODUCT_PACKAGES += $(AUDIO_HARDWARE)
 PRODUCT_PACKAGES += $(AUDIO_POLICY)
 PRODUCT_PACKAGES += $(AUDIO_WRAPPER)
@@ -970,6 +962,8 @@ PRODUCT_PACKAGES_DEBUG := init.qcom.testscripts.sh
 #Add init.qcom.test.rc to PRODUCT_PACKAGES_DEBUG list
 PRODUCT_PACKAGES_DEBUG += init.qcom.test.rc
 PRODUCT_PACKAGES_DEBUG += init.qcom.debug.sh
+PRODUCT_PACKAGES_DEBUG += ueventd.qcom.userdebug.rc
+
 
 #NANOPB_LIBRARY_NAME := libnanopb-c-2.8.0
 
